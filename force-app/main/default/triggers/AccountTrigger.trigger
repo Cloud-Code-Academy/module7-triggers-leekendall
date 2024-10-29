@@ -1,4 +1,5 @@
 trigger AccountTrigger on Account (before insert, after insert) {
+    
     if (Trigger.isBefore) {
         
         for (Account acc : Trigger.new) {
