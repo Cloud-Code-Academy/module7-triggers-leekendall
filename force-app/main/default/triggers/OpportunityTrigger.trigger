@@ -18,7 +18,9 @@ trigger OpportunityTrigger on Opportunity (before update, before delete) {
                 }
 
                 // Q7
-                opp.Primary_Contact__c = accMap.get(opp.AccountId)?.Contacts[0].Id;
+                if (accMap.get(opp.AccountId).Contacts.size() = 1) {
+                    opp.Primary_Contact__c = accMap.get(opp.AccountId)?.Contacts[0].Id;
+                }
             } 
         }
         when BEFORE_DELETE {
