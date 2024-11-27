@@ -9,7 +9,7 @@ trigger OpportunityTrigger on Opportunity (before update, before delete) {
                 accIds.add(opp.AccountId);                
             }
 
-            Map<Id, Account> accMap = new Map<Id, Account> ([SELECT Id, (SELECT Id FROM Contacts WHERE Title = 'CEO') FROM Account WHERE Id IN :accIds]);
+             Map<Id, Account> accMap = new Map<Id, Account>([SELECT Id, (SELECT Id FROM Contacts WHERE Title = 'CEO') FROM Account WHERE Id IN :accIds]);
             
             for (Opportunity opp : Trigger.new) {
                 // Q5
@@ -18,8 +18,8 @@ trigger OpportunityTrigger on Opportunity (before update, before delete) {
                 }
 
                 // Q7
-                if (accMap.get(opp.AccountId).Contacts.size() = 1) {
-                    opp.Primary_Contact__c = accMap.get(opp.AccountId)?.Contacts[0].Id;
+                if (accMap.get(opp.AccountId)?.Contacts.size() == 1) {
+                    opp.Primary_Contact__c = accMap.get(opp.AccountId).Contacts[0].Id;
                 }
             } 
         }
